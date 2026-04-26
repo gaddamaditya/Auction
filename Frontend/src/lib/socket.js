@@ -26,6 +26,7 @@ export function getSocket(token) {
     reconnectionDelay: 1000,
     reconnectionDelayMax: 5000,
     reconnectionAttempts: 10,
+    withCredentials: true,
     auth: authToken ? { token: authToken } : {},
   });
 

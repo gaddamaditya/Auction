@@ -10,6 +10,7 @@ if (!baseURL) {
 
 const api = axios.create({
   baseURL: baseURL || "/",
+  withCredentials: true,
 });
 
 api.interceptors.request.use((config) => {

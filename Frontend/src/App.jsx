@@ -3,8 +3,6 @@ import Navbar from "./components/Navbar.jsx";
 import Home from "./pages/Home.jsx";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
-import ForgotPassword from "./pages/ForgotPassword.jsx";
-import ResetPassword from "./pages/ResetPassword.jsx";
 import AuctionDetails from "./pages/AuctionDetails.jsx";
 import CreateAuction from "./pages/CreateAuction.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
@@ -37,8 +35,6 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/reset-password/:token" element={<ResetPassword />} />
           <Route path="/auctions/:id" element={<AuctionDetails />} />
           <Route path="/create" element={<ProtectedRoute><CreateAuction /></ProtectedRoute>} />
           <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />

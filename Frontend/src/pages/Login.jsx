@@ -127,17 +127,6 @@ export default function Login() {
               className="input-luxury"
               style={{ width: "100%", padding: "0.75rem 1rem", boxSizing: "border-box", fontSize: "0.9rem" }}
             />
-            <div style={{ textAlign: "right", marginTop: "0.5rem" }}>
-              <Link to="/forgot-password" style={{
-                fontSize: "0.75rem",
-                color: "var(--gold-dim)",
-                textDecoration: "none",
-                fontWeight: 500,
-                opacity: 0.7,
-              }}>
-                Forgot password?
-              </Link>
-            </div>
           </div>
 
           {error && (
