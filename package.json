@@ -1,0 +1,15 @@
+{
+  "name": "auction-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Real-time auction app — backend (Express/Socket.io/MongoDB) + frontend (React/Vite)",
+  "scripts": {
+    "install:all": "npm install --prefix backend && npm install --prefix Frontend",
+    "dev:backend": "npm run dev --prefix backend",
+    "dev:frontend": "npm run dev --prefix Frontend",
+    "start:backend": "npm start --prefix backend"
+  },
+  "dependencies": {
+    "react-router-dom": "^7.14.2"
+  }
+}
