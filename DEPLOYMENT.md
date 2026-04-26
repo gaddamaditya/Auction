@@ -9,11 +9,11 @@
 ### 1.2 Create New Web Service
 - Click **"New +"** → **"Web Service"**
 - Select your GitHub repo: `gaddamaditya/Auction`
-- Choose `backend` directory as the "Root Directory"
+- **Root Directory:** Leave EMPTY (don't set it)
 - **Name:** `auction-backend`
 - **Environment:** `Node`
 - **Build Command:** `cd backend && npm install`
-- **Start Command:** `node src/server.js`
+- **Start Command:** `cd backend && node src/server.js`
 
 ### 1.3 Add Environment Variables in Render
 Click **"Environment"** and add:
@@ -23,6 +23,7 @@ MONGO_URI=mongodb+srv://gaddamaditya8_db_user:Qfpe2epV2OsRAeof@cluster0.qjn8o0s.
 JWT_SECRET=7k9L@mP#qR2wX5$vY8zB&nC3sD4aF6gH9jK0lM
 JWT_EXPIRES_IN=7d
 CORS_ORIGIN=https://your-vercel-frontend-url.vercel.app
+NODE_ENV=production
 ```
 
 ⚠️ **IMPORTANT:** Replace `https://your-vercel-frontend-url.vercel.app` with your actual Vercel domain (you'll get this after deploying frontend)
@@ -43,13 +44,14 @@ CORS_ORIGIN=https://your-vercel-frontend-url.vercel.app
 ### 2.2 Import Project
 - Click **"Add New"** → **"Project"**
 - Select `gaddamaditya/Auction` repository
-- **Root Directory:** `Frontend`
-- **Framework:** `React`
+- **Framework Preset:** React
+- **Root Directory:** `Frontend` (capital F - case sensitive!)
 - **Build Command:** `npm run build`
 - **Output Directory:** `dist`
+- **Install Command:** `npm install`
 
 ### 2.3 Add Environment Variables
-Click **"Environment Variables"** and add:
+Click **"Environment Variables"** tab and add:
 ```
 VITE_API_URL=https://auction-backend-xxxx.onrender.com
 ```
@@ -89,20 +91,30 @@ After frontend is deployed:
 ## **TROUBLESHOOTING**
 
 ### "Network Error" on frontend
-- Check VITE_API_URL in Vercel Environment Variables
+- Check `VITE_API_URL` in Vercel Environment Variables
 - Verify Render backend is running (green dot on dashboard)
+- Backend URL should be `https://auction-backend-xxxx.onrender.com` (not `http://`)
 
-### CORS errors
+### CORS errors in browser console
 - Verify `CORS_ORIGIN` in Render matches your Vercel domain exactly
 - Clear browser cache (Ctrl+Shift+Delete)
+- Verify `credentials: true` is set in both backend & frontend
 
 ### MongoDB connection failed
 - Verify `MONGO_URI` is correct in Render Environment Variables
 - Check IP whitelist on MongoDB Atlas (allow 0.0.0.0/0)
+- Test connection: `mongodb+srv://gaddamaditya8_db_user:...`
 
 ### Socket.io not connecting
-- Ensure `credentials: true` is set in both backend & frontend
+- Ensure `credentials: true` is set in:
+  - `backend/src/server.js` (line 14)
+  - `backend/src/app.js` (line 12)
+  - `Frontend/src/lib/socket.js` (line 31)
 - Check browser console for specific error message
+
+### Build command failed on Render
+- Make sure `Start Command` includes `cd backend`: `cd backend && node src/server.js`
+- Build Command should be: `cd backend && npm install`
 
 ---
 
@@ -112,7 +124,8 @@ After frontend is deployed:
 |-----------|----------|------------|
 | Backend | Render | `https://auction-backend-xxxx.onrender.com` |
 | Frontend | Vercel | `https://auction-app-xxxx.vercel.app` |
-| Database | MongoDB Atlas | (No URL needed - in .env) |
+| Database | MongoDB Atlas | (in MONGO_URI env var) |
+| GitHub | - | `https://github.com/gaddamaditya/Auction` |
 
 ---
 
@@ -125,3 +138,14 @@ git commit -m "Your changes"
 git push
 ```
 Both Vercel and Render will auto-deploy on push to main branch.
+
+---
+
+## **IF YOU GET BUILD ERRORS ON RENDER**
+
+The most common issue is the **Root Directory** setting. Make sure:
+- ✅ Root Directory is **EMPTY** (not set to "backend")
+- ✅ Build Command is: `cd backend && npm install`
+- ✅ Start Command is: `cd backend && node src/server.js`
+
+Then click "Manual Deploy" again.
